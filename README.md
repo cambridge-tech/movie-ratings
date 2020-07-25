@@ -5,11 +5,13 @@
 Setup environment
     $sh setup.sh
 
-Set up backend server
-    $ sh run.sh
-
 ```
 
+To set up server open up a separate terminal and run from main project directory
+$ sh run.sh
+
+
+Then you make a request to this endpoint 
 
 Make curl
 ```
