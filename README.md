@@ -42,3 +42,24 @@ $.ajax(settings).done(function (response) {
 });
 ```
  
+```python
+
+import requests
+
+url = "http://0.0.0.0:8080/movie"
+
+headers = {
+    'User-Agent': "PostmanRuntime/7.20.1",
+    'Accept': "*/*",
+    'Cache-Control': "no-cache",
+    'Postman-Token': "50a1395d-a5da-4d75-b873-c3eb89a1d331,d073d94f-08d2-49d6-80ba-9acba5780320",
+    'Host': "0.0.0.0:8080",
+    'Accept-Encoding': "gzip, deflate",
+    'Connection': "keep-alive",
+    'cache-control': "no-cache"
+    }
+
+response = requests.request("GET", url, headers=headers)
+
+print(response.text)
+```
