@@ -1,4 +1,3 @@
-
 import json
 import random
 
@@ -25,7 +24,6 @@ class MovieRatingTimelineResponse(Model):
 class Response(Model):
     movie = T.StringType(required=True)
     timeline = T.ListType(T.ModelType(MovieRatingTimelineResponse))
-
 
 async def handle(request) -> web.Response:
     # audience gets better
