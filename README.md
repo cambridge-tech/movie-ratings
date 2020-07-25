@@ -16,12 +16,14 @@ $ sh run.sh
 
 Then you can make a request to this endpoint 
 
-Make curl
+Make curl on command line
 ```
    $ curl -XGET http://0.0.0.0:8080/{movie name}
 
 ```
  
+
+using javascript ajax
 ```javascript
 var settings = {
   "async": true,
@@ -35,6 +37,7 @@ $.ajax(settings).done(function (response) {
 });
 ```
  
+using python requests
 ```python
 
 import requests
