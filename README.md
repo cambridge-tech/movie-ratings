@@ -45,3 +45,17 @@ response = requests.request("GET", url)
 
 print(response.text)
 ```
+
+## example response
+the json response is of this format
+```
+{   'movie': 'king_of_staten_island',
+    'timeline': [   {   'audienceRating': 86,
+                        'criticRating': 94,
+                        'date': 1595625999},
+                    {   'audienceRating': 86,
+                        'criticRating': 73,
+                        'date': 1595712399}]}
+```
+
+
