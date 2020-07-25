@@ -1,0 +1,21 @@
+# virtualenv
+venv*/
+
+# environment files
+*.env
+
+# covarage test output
+.coverage
+
+# type checking
+.mypy_cache/
+
+# pytests
+.pytest_cache/
+
+# tldextract file
+tldextract.cache
+
+# vim swap files
+*.swp
+*.swo
