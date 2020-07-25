@@ -27,10 +27,6 @@ class Response(Model):
     timeline = T.ListType(T.ModelType(MovieRatingTimelineResponse))
 
 
-def _json_object_hook(d): return namedtuple('X', d.keys())(*d.values())
-def json2obj(data): return json.dumps(data)#, object_hook=_json_object_hook)
-
-
 async def handle(request) -> web.Response:
     # audience gets better
     a1= random.randint(50,95)

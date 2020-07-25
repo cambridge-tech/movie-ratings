@@ -1,4 +1,4 @@
-# movie-ratings
+## movie-ratings
 
 
 ```
@@ -8,10 +8,13 @@ Setup environment
 ```
 
 To set up server open up a separate terminal and run from main project directory
+
+```
 $ sh run.sh
+```
 
 
-Then you make a request to this endpoint 
+Then you can make a request to this endpoint 
 
 Make curl
 ```
