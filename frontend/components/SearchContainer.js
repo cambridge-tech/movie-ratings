@@ -1,5 +1,6 @@
 import React from "react";
 import Timeline from "./Timeline";
+import styles from '../styles/SearchContainer.module.css'
 
 const Search = (props) => {
     const {
@@ -49,7 +50,7 @@ export default class SearchContainer extends React.Component {
         fetch(`http://localhost:8080/${query}`)
             .then(res => res.json())
             .then((result) => this.setState({
-                result: result 
+                result: result
             }))
    }
 
@@ -61,10 +62,10 @@ export default class SearchContainer extends React.Component {
         if (result) {
             results = <Timeline title={result.title}
                                 timeline={result.timeline}/>
-        }        
-       
+        }
+
        return (
-            <div>
+            <div className={styles.container}>
                 <Search
                     query={query}
                     onChange={this.onChange}
