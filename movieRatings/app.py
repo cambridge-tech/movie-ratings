@@ -5,6 +5,7 @@ from typing import Union, List, cast
 from collections.abc import Mapping
 import asyncio
 from aiohttp import web
+import aiohttp_cors
 
 
 from schematics.models import Model
@@ -12,7 +13,7 @@ import schematics.types as T
 
 
 class Request(Model):
-    movie = T.StringType(required=True)
+    title = T.StringType(required=True)
 
 
 class MovieRatingTimelineResponse(Model):
@@ -22,7 +23,7 @@ class MovieRatingTimelineResponse(Model):
 
 
 class Response(Model):
-    movie = T.StringType(required=True)
+    title = T.StringType(required=True)
     timeline = T.ListType(T.ModelType(MovieRatingTimelineResponse))
 
 async def handle(request) -> web.Response:
@@ -41,15 +42,26 @@ async def handle(request) -> web.Response:
     statIs1 = MovieRatingTimelineResponse(j1)
     statIs2 = MovieRatingTimelineResponse(j2)
 
-    resp = Response({"movie": request.match_info['movie']})
+    resp = Response({"title": request.match_info['title']})
 
     resp.timeline = [statIs1, statIs2]
 
-    return web.json_response(json.dumps(resp.to_primitive()))
+    return web.json_response(resp.to_primitive())
 
 
 app = web.Application()
-app.add_routes([web.get('/{movie}', handle)])
+cors = aiohttp_cors.setup(app)
+
+resource = cors.add(app.router.add_resource("/{title}"))
+route = cors.add(
+    resource.add_route("GET", handle), {
+        "http://localhost:3000": aiohttp_cors.ResourceOptions(
+            allow_credentials=True,
+            expose_headers=("X-Custom-Server-Header",),
+            allow_headers=("X-Requested-With", "Content-Type"),
+            max_age=3600,
+        )
+    })
 
 
 if __name__ == "__main__":
