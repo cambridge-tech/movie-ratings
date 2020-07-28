@@ -10,7 +10,7 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. Make sure the backend server is also running if you want to make queries (see [here](https://github.com/cambridge-tech/movie-ratings/blob/master/README.md)).
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
