@@ -45,10 +45,8 @@ export default class SearchContainer extends React.Component {
     onSearch(e) {
         e.preventDefault();
 
-        const apiAddress = process.env.NEXT_PUBLIC_BACKEND_ADDRESS;
-        const query = this.state.query;
-
-        const urlToFetch = url.resolve(apiAddress, query);
+        const urlToFetch = url.resolve(this.props.apiAddress,
+                                       this.state.query);
 
         fetch(urlToFetch)
             .then(res => res.json())
