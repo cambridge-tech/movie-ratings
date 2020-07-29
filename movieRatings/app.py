@@ -10,7 +10,7 @@ import aiohttp_cors
 from schematics.models import Model
 import schematics.types as T
 
-from . import config
+from movieRatings import config
 
 
 class Request(Model):
