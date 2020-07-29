@@ -7,9 +7,10 @@ import asyncio
 from aiohttp import web
 import aiohttp_cors
 
-
 from schematics.models import Model
 import schematics.types as T
+
+from movieRatings import config
 
 
 class Request(Model):
@@ -55,7 +56,7 @@ cors = aiohttp_cors.setup(app)
 resource = cors.add(app.router.add_resource("/{title}"))
 route = cors.add(
     resource.add_route("GET", handle), {
-        "http://localhost:3000": aiohttp_cors.ResourceOptions(
+        config.FRONTEND_ADDRESS: aiohttp_cors.ResourceOptions(
             allow_credentials=True,
             expose_headers=("X-Custom-Server-Header",),
             allow_headers=("X-Requested-With", "Content-Type"),

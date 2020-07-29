@@ -1,4 +1,5 @@
 import React from "react";
+import url from "url";
 import Timeline from "./Timeline";
 import styles from '../styles/SearchContainer.module.css'
 
@@ -28,7 +29,6 @@ export default class SearchContainer extends React.Component {
         this.state = {
             query: '',
             error: null,
-            isLoaded: false,
             isLoading: false,
             result: null
         }
@@ -45,9 +45,10 @@ export default class SearchContainer extends React.Component {
     onSearch(e) {
         e.preventDefault();
 
-        const query = this.state.query;
+        const urlToFetch = url.resolve(this.props.apiAddress,
+                                       this.state.query);
 
-        fetch(`http://localhost:8080/${query}`)
+        fetch(urlToFetch)
             .then(res => res.json())
             .then((result) => this.setState({
                 result: result
@@ -55,7 +56,7 @@ export default class SearchContainer extends React.Component {
    }
 
    render() {
-        const { query, error, isLoaded, result } = this.state;
+        const { query, error, isLoading, result } = this.state;
 
         let results;
 

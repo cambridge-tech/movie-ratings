@@ -2,7 +2,7 @@ import Head from 'next/head'
 import SearchContainer from '../components/SearchContainer'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+export default function Home({ apiAddress }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -20,7 +20,8 @@ export default function Home() {
         </p>
 
         <div>
-          <SearchContainer />
+          <SearchContainer
+            apiAddress={apiAddress}/>
         </div>
       </main>
 
@@ -37,3 +38,12 @@ export default function Home() {
   )
 }
 
+export async function getStaticProps() {
+    const apiAddress = process.env.BACKEND_ADDRESS;
+
+    return {
+        props: {
+            apiAddress,
+        },
+    }
+}
