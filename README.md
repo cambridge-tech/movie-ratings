@@ -7,6 +7,12 @@ Setup environment
 
 ```
 
+Make sure you have an `.env.development` file in the main project directory containing:
+```
+BACKEND_ADDRESS=http://localhost:8080
+FRONTEND_ADDRESS=http://localhost:3000
+```
+
 To set up server open up a separate terminal and run from main project directory
 
 ```
@@ -14,14 +20,14 @@ $ sh run.sh
 ```
 
 
-Then you can make a request to this endpoint 
+Then you can make a request to this endpoint
 
 Make curl on command line
 ```
    $ curl -XGET http://0.0.0.0:8080/{movie name}
 
 ```
- 
+
 
 using javascript ajax
 ```javascript
@@ -36,7 +42,7 @@ $.ajax(settings).done(function (response) {
   console.log(response);
 });
 ```
- 
+
 using python requests
 ```python
 
