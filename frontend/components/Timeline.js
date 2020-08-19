@@ -2,45 +2,58 @@ import React from "react";
 import Chart from "chart.js";
 
 
-function makeChartData(data, key) {
-    return {t: new Date(data.date),
-            y: data[key]} 
-}
+let chart;
 
-export default class Timeline extends React.Component {
+class Timeline extends React.Component {
     constructor(props) {
         super(props);
-
         this.chartRef = React.createRef();
     }
-    
+
     componentDidMount() {
+        this.renderChart();
+    }
+
+    componentWillUnmount() {
+        this.chart.destroy();
+    }
+
+   /**
+    * Select color from given palette for line styles.
+    * For more info on context properties:
+    * https://www.chartjs.org/docs/latest/general/options.html#option-context
+    */
+    pickColor = (context) => {
+        let colors = this.props.colorScheme;
+        let index = context.datasetIndex % colors.length;
+
+        return colors[index];
+    }
+
+    renderChart = () => {
         this.chart = new Chart(this.chartRef.current, {
             type: 'line',
             data: {
-                datasets: [{
-                    label: 'Audience Rating',
-                    data: this.props.timeline.map(d => makeChartData(d, 'audienceRating')),
-                    borderColor: 'rgba(255, 0, 0, 1)',
-                    backgroundColor: 'rgba(255, 0, 0, 0.1)',
-                    fill: false
-                },
-                {
-                    label: 'Critic Rating',
-                    data: this.props.timeline.map(d => makeChartData(d, 'criticRating')),
-                    borderColor: 'rgba(0, 0, 255, 1)',
-                    backgroundColor: 'rgba(0, 0, 255 ,0.1)',
-                    fill: false
-                }]
+                datasets: this.props.datasets
             },
             options: {
+                responsive: true,
+                elements: {
+                    line: {
+                        fill: false,
+                        borderColor: this.pickColor.bind(this),
+                        tension: 0
+                    },
+                    point: {
+                        backgroundColor: this.pickColor.bind(this)
+                    }
+                },
                 tooltips: {
-                    mode: 'index',
-                    intersect: false
+                    enabled: false
                 },
                 scales: {
                     xAxes: [{
-                        type: 'time',
+                        type: 'time'
                     }],
                     yAxes: [{
                         ticks: {
@@ -58,20 +71,15 @@ export default class Timeline extends React.Component {
         })
     }
 
-    componentDidUpdate() {
-        this.chart.data.datasets[0].data = this.props.timeline.map(d => makeChartData(d, 'audienceRating'));
-        this.chart.data.datasets[1].data = this.props.timeline.map(d => makeChartData(d, 'criticRating'))
-        this.chart.update();
-    }
-
     render() {
         return (
-            <div>
-                <h3>Title: {this.props.title}</h3>
-                <canvas ref={this.chartRef}
-                        height="500px"
-                        width="800px"/>
-            </div>
+            <canvas ref={this.chartRef} />
         )
     }
+
+    static defaultProps = {
+        colorScheme: ["#0c4767","#ff8c42","#96616b","#1b998b","#274156"]
+    }
 }
+
+export default Timeline;

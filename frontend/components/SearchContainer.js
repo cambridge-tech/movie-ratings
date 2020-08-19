@@ -58,11 +58,10 @@ export default class SearchContainer extends React.Component {
    render() {
         const { query, error, isLoading, result } = this.state;
 
-        let results;
+        const datasets = timeline_to_datasets(result.timeline);
 
         if (result) {
-            results = <Timeline title={result.title}
-                                timeline={result.timeline}/>
+            results = <Timeline datasets={datasets}/>
         }
 
        return (
