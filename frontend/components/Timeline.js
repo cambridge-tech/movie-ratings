@@ -14,6 +14,12 @@ class Timeline extends React.Component {
         this.renderChart();
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.datasets !== prevProps.datasets) {
+            this.renderChart();
+        }
+    }
+
     componentWillUnmount() {
         this.chart.destroy();
     }

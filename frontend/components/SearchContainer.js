@@ -58,10 +58,20 @@ export default class SearchContainer extends React.Component {
    render() {
         const { query, error, isLoading, result } = this.state;
 
-        const datasets = timeline_to_datasets(result.timeline);
+        let results;
 
         if (result) {
-            results = <Timeline datasets={datasets}/>
+            const datasets = [{
+                   label: 'Rotten Tomatoes Critic Rating',
+                   data: result.timeline.map(e => ({t: e.date,
+                                                   y: e.criticRating}))
+                   }, {
+                    label: 'Rotten Tomatoes Audience Rating',
+                    data: result.timeline.map(e => ({t: e.date,
+                                                     y: e.audienceRating}))
+                   }];
+
+            results = <div className={styles.results}><Timeline datasets={datasets}/></div>
         }
 
        return (
@@ -71,6 +81,7 @@ export default class SearchContainer extends React.Component {
                     onChange={this.onChange}
                     doSearch={this.onSearch}
                 />
+
                 {results}
             </div>
         )
